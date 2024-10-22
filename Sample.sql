@@ -70,4 +70,47 @@ FROM Station
 WHERE LEFT(City, 1) IN ('A', 'E', 'I', 'O', 'U')
 AND RIGHT(City, 1) IN ('A', 'E', 'I', 'O', 'U');
 
+/*
+#7 Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
 
+Zapytanie o listę nazw CITY z STATION, które albo nie zaczynają się od samogłosek, albo nie kończą się na samogłoski. Wynik nie może zawierać duplikatów.
+*/
+SELECT DISTINCT City
+FROM Station
+WHERE LEFT(City, 1) NOT IN ('A', 'E', 'I', 'O', 'U')
+OR RIGHT(City, 1) NOT IN ('A', 'E', 'I', 'O', 'U');
+
+/*
+#8 Zapytanie zwraca wszystkie miasta, gdzie trzeci znak od końca jest samogłoską
+*/
+
+SELECT CITY
+FROM Twoja_Tabela
+WHERE SUBSTRING(CITY, LEN(CITY) - 2, 1) IN ('A', 'E', 'I', 'O', 'U')
+/*
+LEN(CITY) — oblicza długość tekstu w kolumnie CITY.
+LEN(CITY) - 2 — odwołuje się do trzeciego znaku od końca (bo LEN(CITY) zwraca liczbę znaków, a -2 przesuwa pozycję do trzeciego znaku od końca).
+SUBSTRING(CITY, LEN(CITY) - 2, 1) — wyciąga trzeci znak od końca, zaczynając od pozycji LEN(CITY) - 2 i zwracając dokładnie 1 znak.
+*/
+
+/*
+Table STUDENTS
++-------------+------------+
+| Field       |   Type     |
++-------------+------------+
+| ID          | INTEGER    |
+| NAME        | STRING     |
+| MARKS       | INTEGER    |
++-------------+------------+
+
+  
+#9 Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. 
+If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+
+Zapytanie o nazwę dowolnego studenta w STUDENTS, który uzyskał wynik wyższy niż Marks. Uporządkuj dane wyjściowe według ostatnich trzech znaków każdego imienia. 
+Jeśli dwóch lub więcej studentów ma imiona kończące się tymi samymi trzema ostatnimi znakami (np.: Bobby, Robby itp.), posortuj ich według rosnącego ID.
+*/
+SELECT NAME 
+FROM STUDENTS 
+WHERE MARKS > 75 
+ORDER BY RIGHT(NAME, 3), ID ASC;
